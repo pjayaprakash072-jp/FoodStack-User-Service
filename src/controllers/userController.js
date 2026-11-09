@@ -102,8 +102,8 @@ const updateUser = async(req,res)=>{
 }
 const getOneUser = async(req,res)=>{
     try {
-        const authId = req.userId;
-        const user = await User.findOne({authId});
+        const userId = req.userId;
+        const user = await User.findById(userId);
         if(!user){
             return res.status(400).json(
                 {

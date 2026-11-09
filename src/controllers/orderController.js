@@ -279,7 +279,7 @@ const getOrdersByOutlet = async (req,res)=>{
 }
 const updateOrder = async(req,res)=>{
     try {
-        const orderId = req.params.orderId;
+        const orderId = req.query.orderId;
         const {paymentStatus,orderStatus} = req.body;
         if(!paymentStatus && !orderStatus) {
             return res.status(400).json(
