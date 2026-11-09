@@ -3,8 +3,10 @@
 const Address = require('../models/Address')
 const Order = require('../models/Order')
 const User = require('../models/User')
-const {getMenuItemById} = require('../service/menuService');
-const {getOutletById} = require('../service/outletService');
+const {
+    getOutletById,
+    getMenuItemById
+} = require('../service/outletService');
 const {publishEvent} = require('../events/eventpublisher')
 const createOrder = async(req,res)=>{
 
