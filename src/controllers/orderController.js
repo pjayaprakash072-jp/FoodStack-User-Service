@@ -195,7 +195,8 @@ const getAllOrdersByUser = async(req,res)=>{
 }
 const getAllOrderByVendor = async (req,res)=>{
     try {
-        const vendorId = req.vendorId;
+        const {vendor:vendorId} = req.query;
+        console.log(vendorId);
         const orders = await Order.find({vendor:vendorId});
         if(!orders){
             return res.status(400).json(

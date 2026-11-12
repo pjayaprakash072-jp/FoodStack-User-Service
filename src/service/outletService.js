@@ -20,7 +20,7 @@ const getOutletById = async(id)=>{
 }
 const getMenuItemById = async(id) => { 
     try {
-        const response = await menuService.get(
+        const response = await outlerService.get(
             `/menu-item/get/${id}`
         )
         return response.data.menuItem;

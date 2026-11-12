@@ -32,14 +32,6 @@ const verifyToken = async (req, res, next) => {
         const currentSession = await getCache(
             `${decoded.role}:session:${decoded.id}`
         )
-
-
-        // console.log("JWT session:", decoded.sessionId);
-        // console.log("Redis session:", currentSession);
-        // console.log("User ID:", decoded.id);
-        // console.log("Role:", decoded.role);
-
-
         if(!currentSession){
             return res.status(401).json(
                 {
@@ -55,12 +47,16 @@ const verifyToken = async (req, res, next) => {
                 }
             )
         }
+        console.log(decoded);
         req.role = decoded.role;
         if(decoded.role === "user"){
             const authId = decoded.id;
             const user = await User.findOne({authId});
             req.userId = user._id;
             req.user = user;
+        }
+        if(req.role === "vendor"){
+            req.vendorId = req.id;
         }
         next();
     } catch (error) {
