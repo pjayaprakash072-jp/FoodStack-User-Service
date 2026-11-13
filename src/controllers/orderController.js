@@ -197,7 +197,7 @@ const getAllOrderByVendor = async (req,res)=>{
     try {
         const {vendor:vendorId} = req.query;
         console.log(vendorId);
-        const orders = await Order.find({vendor:vendorId});
+        const orders = await Order.find({vendor:vendorId}).populate("user","name phone");
         if(!orders){
             return res.status(400).json(
                 {
