@@ -251,7 +251,7 @@ const getOneOrder = async(req,res)=>{
 
 const getOrdersByOutlet = async (req,res)=>{
     try {
-        const outletId = req.outletId;
+        const outletId = req.query.outletId;
         console.log(outletId)
         const orders = await Order.find({outlet:outletId})
         if(!orders){
