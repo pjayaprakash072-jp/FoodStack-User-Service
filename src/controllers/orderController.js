@@ -310,6 +310,7 @@ const updateOrder = async(req,res)=>{
             // paymentStatus:order.paymentStatus
         }
         await publishEvent(type,data);
+        await order.save();
         res.status(200).json(
             {
                 message:"Order Updated Successfully!",
