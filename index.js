@@ -3,7 +3,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 const {connectPublisher} = require('./src/events/eventpublisher')// redipub sub.
 const {connectConsumer} = require('./src/utils/kafka/consumer');
-const KAFKA_TOPICS = require('./src/utils/kafka/topics')
+const {connnectProducer} = require('./src/utils/kafka/producer');
+const {CONSUMER_TOPICS} = require('./src/utils/kafka/topics')
 const app = require('./app')
 
 const connectDB = require("./src/config/db");
@@ -16,9 +17,10 @@ const startServer = async ()=>{
     try {
         await connectDB();
         await connectRedis();
-        await connectPublisher();
+        // await connectPublisher();
+        await connnectProducer();
         await createTopics();
-        await connectConsumer(Object.values(KAFKA_TOPICS));
+        await connectConsumer(Object.values(CONSUMER_TOPICS));
         app.listen(PORT, () => {
                 console.log(`Server is running on port ${PORT}`);
             }   

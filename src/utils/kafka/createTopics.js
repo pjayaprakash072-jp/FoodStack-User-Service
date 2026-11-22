@@ -1,11 +1,11 @@
 const kafka = require('../../config/kafka');
-const kafka_topics = require('./topics');
+const {KAFKA_TOPICS} = require('./topics');
 const createTopics = async()=>{
   const admin = kafka.admin();
   try {
     await admin.connect();
 
-    const topics = Object.values(kafka_topics).map(
+    const topics = Object.values(KAFKA_TOPICS).map(
       topic=>(
         {
           topic,
