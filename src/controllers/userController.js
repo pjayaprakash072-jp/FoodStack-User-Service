@@ -4,55 +4,6 @@ const cloudinary = require('../config/cloudinary')
 const {
     updateAuthUser
 } = require('../service/userAuthService')
-const createUser = async(req,res)=>{
-    try{
-        const authId = req.query.authId;
-        const {
-            name,
-            email,
-            phone
-        } = req.body;
-        if(!name || !email ){
-            return res.status(400).json(
-                {
-                    message:"Name and email required!"
-                }
-            )
-        }
-        const existingUser = await User.findOne({email:email.toLowerCase()});
-        if(existingUser){
-            return res.status(400).json(
-                {
-                    message:"User with this email already Existe."
-                }
-            )
-        }
-        const user = new User(
-            {
-                authId,
-                name,
-                email:email.toLowerCase(),
-                phone,
-                authProvider:"local",
-            }
-        )
-        await user.save();
-    res.status(201).json(
-        {
-            message:"user Created Successfull! Please Verify email",
-            user
-        }
-    )
-    }catch(err){
-        console.log("Error",err);
-        res.status(500).json(
-            {
-                message:"Internal server Error, Failed to create User/Customer!" , 
-                error:err.message
-            }
-        )
-    }
-}
 
 const updateUser = async(req,res)=>{
     try {
@@ -128,7 +79,6 @@ const getOneUser = async(req,res)=>{
     }
 }
 module.exports = {
-    createUser,
     updateUser,
     getOneUser
 }

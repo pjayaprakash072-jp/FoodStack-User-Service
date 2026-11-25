@@ -1,7 +1,6 @@
 
 const kafka = require('../../config/kafka');
-const {publishMessage} = require('./producer')
-const {KAFKA_TOPICS} = require('./topics')
+const createuser = require('./handlers/userRegHandler')
 const consumer = kafka.consumer(
   {
     groupId:process.env.KAFKA_GROUP_ID
@@ -31,12 +30,7 @@ const connectConsumer = async(topics)=>{
               data
             }
           )
-          await publishMessage(
-            KAFKA_TOPICS.USER_PROFILE_CREATED,
-            {
-              message: " user created successfully!"
-            }
-          )
+          await createuser(data);
         }
       }
     )

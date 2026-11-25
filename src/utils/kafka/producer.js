@@ -14,12 +14,18 @@ const connnectProducer = async()=>{
 
 const publishMessage = async(topic, msg)=>{
   try {
+    const {eventId,eventType, ...data} = msg;
     await producer.send(
       {
         topic,
         messages:[
           {
-            value:JSON.stringify(msg)
+            key:eventId?eventId:undefined,
+            value:JSON.stringify(data),
+            headers:{
+              eventType,
+              version:"1"
+            }
           }
         ]
       }
