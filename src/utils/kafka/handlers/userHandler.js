@@ -1,7 +1,7 @@
 const User = require('../../../models/User');
 const {publishMessage} = require('../producer');
 const crypto = require('crypto')
-const createUser = async(event)=>{
+const requestCreateUser = async(event)=>{
     try{
       const {authId,data} = event
       const {name,email,phone}  = data
@@ -35,7 +35,6 @@ const createUser = async(event)=>{
           authId,
           occuredAt: new Date().toISOString(),
           data:{
-            authId,
             userId:user._id,
             name:user.name,
             email:user.email,
@@ -60,4 +59,6 @@ const createUser = async(event)=>{
     }
 }
 
-module.exports = createUser;
+module.exports = {
+  requestCreateUser
+};

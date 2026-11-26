@@ -1,6 +1,6 @@
 
 const kafka = require('../../config/kafka');
-const createuser = require('./handlers/userRegHandler')
+const {requestCreateUser} = require('./handlers/userHandler')
 const consumer = kafka.consumer(
   {
     groupId:process.env.KAFKA_GROUP_ID
@@ -30,7 +30,7 @@ const connectConsumer = async(topics)=>{
               data
             }
           )
-          await createuser(data);
+          await requestCreateUser(data);
         }
       }
     )
